@@ -2,46 +2,52 @@ import java.util.Scanner;
 
 public class ejercicio6 {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        
-        System.out.print("Introduzca la posición del alfil: ");
-        String posicion = sc.nextLine().toLowerCase().trim();
+        Scanner entrada = new Scanner(System.in);
 
-        if (posicion.length() != 2) {
-            System.out.println("Posición inválida.");
-            return;
-        }
-        
-        char columnaChar = posicion.charAt(0);
-        int fila = posicion.charAt(1) - '1'; 
+        System.out.print("Introduce la posición del alfil (ej. d4): ");
+        String pos = entrada.nextLine();
 
-        if (columnaChar < 'a' || columnaChar > 'h' || fila < 0 || fila > 7) {
-            System.out.println("Posición inválida.");
-            return;
-        }
-        
-        int columna = columnaChar - 'a'; 
-        
-        System.out.println("El alfil puede moverse a las siguientes posiciones:");
+        char letra = pos.charAt(0); // columna: a-h
+        int numero = Character.getNumericValue(pos.charAt(1)); // fila: 1-8
 
-       
-        for (int i = 1; fila + i < 8 && columna + i < 8; i++) {
-            System.out.print("" + (char)('a' + columna + i) + (fila + i + 1) + " ");
-        }
-        
-        for (int i = 1; fila + i < 8 && columna - i >= 0; i++) {
-            System.out.print("" + (char)('a' + columna - i) + (fila + i + 1) + " ");
+        System.out.println("Movimientos posibles del alfil:");
+
+        // Diagonal arriba derecha
+        for (int i = 1; i < 8; i++) {
+            char nuevaLetra = (char)(letra + i);
+            int nuevoNumero = numero + i;
+            if (nuevaLetra <= 'h' && nuevoNumero <= 8) {
+                System.out.println(nuevaLetra + "" + nuevoNumero);
+            }
         }
 
-        for (int i = 1; fila - i >= 0 && columna + i < 8; i++) {
-            System.out.print("" + (char)('a' + columna + i) + (fila - i + 1) + " ");
+        // Diagonal arriba izquierda
+        for (int i = 1; i < 8; i++) {
+            char nuevaLetra = (char)(letra - i);
+            int nuevoNumero = numero + i;
+            if (nuevaLetra >= 'a' && nuevoNumero <= 8) {
+                System.out.println(nuevaLetra + "" + nuevoNumero);
+            }
         }
 
-        for (int i = 1; fila - i >= 0 && columna - i >= 0; i++) {
-            System.out.print("" + (char)('a' + columna - i) + (fila - i + 1) + " ");
+        // Diagonal abajo derecha
+        for (int i = 1; i < 8; i++) {
+            char nuevaLetra = (char)(letra + i);
+            int nuevoNumero = numero - i;
+            if (nuevaLetra <= 'h' && nuevoNumero >= 1) {
+                System.out.println(nuevaLetra + "" + nuevoNumero);
+            }
         }
 
-        System.out.println();
-        sc.close();
+        // Diagonal abajo izquierda
+        for (int i = 1; i < 8; i++) {
+            char nuevaLetra = (char)(letra - i);
+            int nuevoNumero = numero - i;
+            if (nuevaLetra >= 'a' && nuevoNumero >= 1) {
+                System.out.println(nuevaLetra + "" + nuevoNumero);
+            }
+        }
+
+        entrada.close();
     }
 }
